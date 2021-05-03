@@ -13,12 +13,13 @@ export default class ViewRenderer extends BaseViewRenderer<any> {
     private _dim: Dimension = { width: 0, height: 0 };
     private _viewRef: React.Component<ViewProperties, React.ComponentState> | null = null;
     public renderCompat(): JSX.Element {
+        const position = this.props.isRTL ? { right: this.props.x } : { left: this.props.x };
         return this.props.forceNonDeterministicRendering ? (
             <View ref={this._setRef}
             onLayout={this._onLayout}
                 style={{
                     flexDirection: this.props.isHorizontal ? "column" : "row",
-                    left: this.props.x,
+                    ...position,
                     position: "absolute",
                     top: this.props.y,
                     ...this.props.styleOverrides,
@@ -29,7 +30,7 @@ export default class ViewRenderer extends BaseViewRenderer<any> {
         ) : (
                 <View ref={this._setRef}
                     style={{
-                        left: this.props.x,
+                        ...position,
                         position: "absolute",
                         top: this.props.y,
                         height: this.props.height,

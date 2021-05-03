@@ -110,6 +110,7 @@ export interface RecyclerListViewProps {
     scrollViewProps?: object;
     applyWindowCorrection?: (offsetX: number, offsetY: number, windowCorrection: WindowCorrection) => void;
     onItemLayout?: (index: number) => void;
+    isRTL?: boolean;
 }
 
 export interface RecyclerListViewState {
@@ -612,6 +613,7 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
             }
             return (
                 <ViewRenderer key={key} data={data}
+                    isRTL={this.props.isRTL}
                     dataHasChanged={this._dataHasChanged}
                     x={itemRect.x}
                     y={itemRect.y}
@@ -708,6 +710,8 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
 }
 
 RecyclerListView.propTypes = {
+
+    isRTL: PropTypes.bool,
 
     //Refer the sample
     layoutProvider: PropTypes.instanceOf(BaseLayoutProvider).isRequired,
